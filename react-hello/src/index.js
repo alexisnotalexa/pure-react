@@ -1,12 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-function HelloWorld() {
-    return React.createElement('div', {},
-        React.createElement('h1', {}, 'HELLO'),
-        React.createElement('h3', {}, 'WORLD'),
-        React.createElement('h6', {}, 'TEST')
+function Hello() {
+    return (
+        <span>Hello</span>
     );
+}
+
+function World() {
+    return (
+        <span>World</span>
+    );
+}
+
+function HelloWorld() {
+    return (
+        <div>
+            <Hello /> <World />!
+        </div>
+    )
 }
 
 ReactDOM.render(

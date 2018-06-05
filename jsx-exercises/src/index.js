@@ -9,7 +9,14 @@ function Greeting({ username }) {
     );
 }
 
+function TwoElements() {
+    return [
+        <div>Hello</div>,
+        <div>World</div>
+    ];
+}
+
 ReactDOM.render(
-    <Greeting username={"Fred"} />,
+    <TwoElements />,
     document.getElementById('root')
 );

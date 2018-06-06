@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import moment from 'moment';
+import PropTypes from 'prop-types';
 import './index.css';
 
 const Time = ({ time }) => {
@@ -13,16 +14,42 @@ const Time = ({ time }) => {
 }
 
 const ReplyButton = () => (
-    <i className="fa fa-reply reply-button"/>
+    <i className="fas fa-reply reply-button"/>
 );
-const RetweetButton = () => (
-    <i className="fa fa-retweet retweet-button"/>
+
+function Count(count) {
+    if(count > 0) {
+        return (
+            <span className="retweet-count">
+                {count}
+            </span>
+        );
+    } else {
+        return null;
+    }
+}
+
+const RetweetButton = ({ count }) => (
+    <span className="retweet-button">
+        <i className="fas fa-retweet" />
+        <Count count={count} />
+    </span>
 );
-const LikeButton = () => (
-    <i className="fa fa-heart like-button"/>
+
+const LikeButton = ({ count }) => (
+    <span className="like-button">
+        <i className="fas fa-heart" />
+        {
+            count > 0 &&
+            <span className="like-count">
+                {count}
+            </span>
+        }
+    </span>
 );
+
 const MoreOptionsButton = () => (
-    <i className="fa fa-ellipsis-h more-options-button"/>
+    <i className="fas fa-ellipsis-h more-options-button"/>
 );
 
 function Avatar({ hash }) {
@@ -63,13 +90,31 @@ function Tweet({ tweet }) {
                 <Message text={tweet.message} />
                 <div className="buttons">
                     <ReplyButton />
-                    <RetweetButton />
-                    <LikeButton />
+                    <RetweetButton count={tweet.retweets} />
+                    <LikeButton count={tweet.likes} />
                     <MoreOptionsButton />
                 </div>
             </div>
         </div>
     )
+}
+
+function Comment({ author, message, likes }) {
+    return (
+        <div>
+            <div className="author">{author}</div>
+            <div className="message">{message}</div>
+            <div className="likes">
+                {likes > 0 ? likes : 'No'} likes
+            </div>
+        </div>
+    );
+}
+
+Comment.propTypes = {
+    message: PropTypes.string.isRequired,
+    author: PropTypes.string.isRequired,
+    likes: PropTypes.number
 }
 
 var testTweet = {
